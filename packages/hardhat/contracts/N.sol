@@ -257,7 +257,7 @@ contract N is ERC721Enumerable, ReentrancyGuard, Ownable {
                     abi.encodePacked(
                         '{"name": "N #',
                         toString(tokenId),
-                        '", "description": "BeWater MyFriend.", "image": "data:image/svg+xml;base64,',
+                        '", "description": "N is just numbers.", "image": "data:image/svg+xml;base64,',
                         Base64.encode(bytes(output)),
                         '"}'
                     )
