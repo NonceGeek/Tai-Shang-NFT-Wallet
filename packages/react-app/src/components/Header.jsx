@@ -5,10 +5,10 @@ import React from "react";
 
 export default function Header() {
   return (
-    <a href="https://github.com/austintgriffith/scaffold-eth" target="_blank" rel="noopener noreferrer">
+    <a href="https://github.com/leeduckgo/bewater-nft-wallet" target="_blank" rel="noopener noreferrer">
       <PageHeader
-        title="🏗 scaffold-eth"
-        subTitle="🖼 NFT example"
+        title="BeWater"
+        subTitle="🖼 NFT Wallet0x01"
         style={{ cursor: "pointer" }}
       />
     </a>
