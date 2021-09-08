@@ -51,7 +51,6 @@ export default function useContractReader(contracts, contractName, functionName,
           console.log("contractName", contractName, "functionName", functionName, "args", args, "RESULT:", newValue);
       } else {
         newValue = await contracts[contractName][functionName]();
-        setTried(true);
       }
       if (formatter && typeof formatter === "function") {
         newValue = formatter(newValue);
@@ -68,7 +67,6 @@ export default function useContractReader(contracts, contractName, functionName,
   // Only pass a provider to watch on a block if we have a contract and no PollTime
   useOnBlock(contracts && contracts[contractName] && adjustPollTime === 0 && contracts[contractName].provider, () => {
     if (contracts && contracts[contractName] && adjustPollTime === 0) {
-      if (DEBUG) console.log("on-blocking!", contractName, functionName);
       updateValue();
     }
   });

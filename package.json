@@ -15,7 +15,6 @@
     "react-app:start": "yarn workspace @scaffold-eth/react-app start",
     "react-app:test": "yarn workspace @scaffold-eth/react-app test",
     "build": "yarn workspace @scaffold-eth/react-app build --max-old-space-size=12288",
-    "prettier": "yarn workspace @scaffold-eth/react-app prettier",
     "chain": "yarn workspace @scaffold-eth/hardhat chain",
     "fork": "yarn workspace @scaffold-eth/hardhat fork",
     "node": "yarn workspace @scaffold-eth/hardhat chain",
@@ -23,7 +22,6 @@
     "start": "yarn workspace @scaffold-eth/react-app start",
     "compile": "yarn workspace @scaffold-eth/hardhat compile",
     "deploy": "yarn workspace @scaffold-eth/hardhat deploy",
-    "verify": "yarn workspace @scaffold-eth/hardhat etherscan-verify", 
     "watch": "yarn workspace @scaffold-eth/hardhat watch",
     "accounts": "yarn workspace @scaffold-eth/hardhat accounts",
     "balance": "yarn workspace @scaffold-eth/hardhat balance",
@@ -50,6 +48,7 @@
     "graph-deploy-local": "yarn workspace @scaffold-eth/subgraph graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 scaffold-eth/your-contract",
     "graph-ship-local": "yarn graph-prepare && yarn graph-codegen && yarn graph-deploy-local",
     "deploy-and-graph": "yarn deploy && yarn graph-ship-local",
+    "mint": "yarn workspace @scaffold-eth/hardhat mint",
     "theme": "yarn workspace @scaffold-eth/react-app theme",
     "watch-theme": "yarn workspace @scaffold-eth/react-app watch"
   },
@@ -63,6 +62,5 @@
       "**/hardhat",
       "**/hardhat/**"
     ]
-  },
-  "dependencies": {}
+  }
 }

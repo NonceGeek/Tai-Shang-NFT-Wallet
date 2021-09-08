@@ -1,3 +1,4 @@
+/* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 import { useEffect, useState } from "react";
 
@@ -34,10 +35,6 @@ const { ethers } = require("ethers");
 
 export default function useContractLoader(providerOrSigner, config = {}) {
   const [contracts, setContracts] = useState();
-
-  const customAddressKeys = config.customAddresses && Object.keys(config.customAddresses).join();
-  const customAddressValues = config.customAddresses && Object.values(config.customAddresses).join();
-
   useEffect(() => {
     let active = true;
 
@@ -120,7 +117,7 @@ export default function useContractLoader(providerOrSigner, config = {}) {
     return () => {
       active = false;
     };
-  }, [providerOrSigner, config.chainId, config.hardhatNetworkName, customAddressKeys, customAddressValues]);
+  }, [providerOrSigner, config.chainId, config.hardhatNetworkName]);
 
   return contracts;
 }
