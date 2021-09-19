@@ -10,6 +10,8 @@ require("hardhat-deploy");
 require("@eth-optimism/hardhat-ovm");
 require("@nomiclabs/hardhat-ethers");
 
+require("@nomiclabs/hardhat-etherscan");
+
 const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 
 /*
@@ -161,6 +163,9 @@ module.exports = {
         l2: "localOptimism",
       },
     },
+  },
+  etherscan: {
+    apiKey: "77UU1F1F2X7DXEQ255A6493AN1JTG1SADF",
   },
   solidity: {
     compilers: [

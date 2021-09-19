@@ -444,6 +444,16 @@ function App(props) {
               Ns
             </Link>
           </Menu.Item>
+          <Menu.Item key="/contract-interactor">
+            <Link
+              onClick={() => {
+                setRoute("/contract-interactor");
+              }}
+              to="/contract-interactor"
+            >
+              Contract Interactor
+            </Link>
+          </Menu.Item>
           <Menu.Item key="/transfers">
             <Link
               onClick={() => {
@@ -454,7 +464,8 @@ function App(props) {
               Transfers
             </Link>
           </Menu.Item>
-          <Menu.Item key="/ipfsup">
+
+          {/* <Menu.Item key="/ipfsup">
             <Link
               onClick={() => {
                 setRoute("/ipfsup");
@@ -483,7 +494,7 @@ function App(props) {
             >
               Debug Contracts
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
         </Menu>
 
         <Switch>
@@ -550,6 +561,23 @@ function App(props) {
             </div>
           </Route>
 
+          {/* IMPORTANT PLACE */}
+          <Route exact path="/contract-interactor">
+            {/*
+                🎛 this scaffolding is full of commonly used components
+                this <Contract/> component will automatically parse your ABI
+                and give you a form to interact with it locally
+            */}
+
+            <Contract
+              name="N"
+              signer={userSigner}
+              provider={localProvider}
+              address={address}
+              blockExplorer={blockExplorer}
+            />
+          </Route>
+
           <Route path="/transfers">
             <div style={{ width: 600, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
               <List
@@ -568,7 +596,7 @@ function App(props) {
             </div>
           </Route>
 
-          <Route path="/ipfsup">
+          {/* <Route path="/ipfsup">
             <div style={{ paddingTop: 32, width: 740, margin: "auto", textAlign: "left" }}>
               <ReactJson
                 style={{ padding: 8 }}
@@ -650,7 +678,7 @@ function App(props) {
               address={address}
               blockExplorer={blockExplorer}
             />
-          </Route>
+          </Route> */}
         </Switch>
       </BrowserRouter>
 
