@@ -5,6 +5,7 @@ import Account from "../Account";
 import DisplayVariable from "./DisplayVariable";
 import FunctionForm from "./FunctionForm";
 
+const funcsUseful = ["claim", "ownerOf", "balanceOf"];
 const noContractDisplay = (
   <div>
     Loading...{" "}
@@ -74,37 +75,41 @@ export default function Contract({
           )
         : [],
     [contract, show],
-  );
-
+  ).sort((a, b) => funcsUseful.indexOf(a.name) - funcsUseful.indexOf(b.name));
+  // IMPORTANT PLACE: SORT
   const [refreshRequired, triggerRefresh] = useState(false);
+  // console.log(displayedContractFunctions);
   const contractDisplay = displayedContractFunctions.map(fn => {
-    if (isQueryable(fn)) {
-      // If there are no inputs, just display return value
+    // IMPORTANT PLACE
+    if (funcsUseful.includes(fn.name)) {
+      if (isQueryable(fn)) {
+        // If there are no inputs, just display return value
+        return (
+          <DisplayVariable
+            key={fn.name}
+            contractFunction={contract[fn.name]}
+            functionInfo={fn}
+            refreshRequired={refreshRequired}
+            triggerRefresh={triggerRefresh}
+          />
+        );
+      }
+      // If there are inputs, display a form to allow users to provide these
       return (
-        <DisplayVariable
-          key={fn.name}
-          contractFunction={contract[fn.name]}
+        <FunctionForm
+          key={"FF" + fn.name}
+          contractFunction={
+            fn.stateMutability === "view" || fn.stateMutability === "pure"
+              ? contract[fn.name]
+              : contract.connect(signer)[fn.name]
+          }
           functionInfo={fn}
-          refreshRequired={refreshRequired}
+          provider={provider}
+          gasPrice={gasPrice}
           triggerRefresh={triggerRefresh}
         />
       );
     }
-    // If there are inputs, display a form to allow users to provide these
-    return (
-      <FunctionForm
-        key={"FF" + fn.name}
-        contractFunction={
-          fn.stateMutability === "view" || fn.stateMutability === "pure"
-            ? contract[fn.name]
-            : contract.connect(signer)[fn.name]
-        }
-        functionInfo={fn}
-        provider={provider}
-        gasPrice={gasPrice}
-        triggerRefresh={triggerRefresh}
-      />
-    );
   });
 
   return (
