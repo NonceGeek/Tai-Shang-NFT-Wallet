@@ -20,6 +20,10 @@ import {
   useUserSigner,
 } from "./hooks";
 
+import { parseNFT } from "./backend_hooks";
+
+import axios from "axios"; 
+
 const { BufferList } = require("bl");
 // https://www.npmjs.com/package/ipfs-http-client
 const ipfsAPI = require("ipfs-http-client");
@@ -103,6 +107,9 @@ const localProviderUrl = targetNetwork.rpcUrl;
 const localProviderUrlFromEnv = process.env.REACT_APP_PROVIDER ? process.env.REACT_APP_PROVIDER : localProviderUrl;
 if (DEBUG) console.log("🏠 Connecting to provider:", localProviderUrlFromEnv);
 const localProvider = new ethers.providers.StaticJsonRpcProvider(localProviderUrlFromEnv);
+
+// IMPORTANT PLACE
+const backend = "https://taishang.leeduckgo.com/taishang/api/v1/parse?handler_id=1&type=n";
 
 // 🔭 block explorer URL
 const blockExplorer = targetNetwork.blockExplorer;
@@ -217,19 +224,41 @@ function App(props) {
           console.log("tokenId", tokenId);
           const tokenURI = await readContracts.N.tokenURI(tokenId);
           console.log("tokenURI", tokenURI);
-          const svg = decodeTokenURI(tokenURI);
+          // TODO: Optimize
+          let svg;
+          // const svg = get_svg(tokenURI);
+          // const svg = decodeTokenURI(tokenURI);
           // const ipfsHash = tokenURI.replace("https://ipfs.io/ipfs/", "");
           // console.log("ipfsHash", ipfsHash);
-
+          axios({
+            method: 'post',
+            url: backend,
+            data: {
+              token_uri: tokenURI,
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+          })
+          .then(response => {
+            svg = window.atob(response.data.result.image);
+            
+            console.log(svg);
+            try {
+              // const jsonManifest = JSON.parse(jsonManifestBuffer.toString());
+              // console.log("jsonManifest", jsonManifest);
+              collectibleUpdate.push({ id: tokenId, uri: tokenURI, svg: svg, owner: address});
+            } catch (e) {
+              console.log(e);
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        
           // const jsonManifestBuffer = await getFromIPFS(ipfsHash);
 
-          try {
-            // const jsonManifest = JSON.parse(jsonManifestBuffer.toString());
-            // console.log("jsonManifest", jsonManifest);
-            collectibleUpdate.push({ id: tokenId, uri: tokenURI, svg: svg, owner: address});
-          } catch (e) {
-            console.log(e);
-          }
+
         } catch (e) {
           console.log(e);
         }
@@ -239,13 +268,18 @@ function App(props) {
     updateNs();
   }, [address, yourBalance]);
 
-  function decodeTokenURI(tokenURI) {
+  // function get_svg(tokenURI) {
+  //   let decodedData = window.atob(tokenURI.slice(29));
+  //   return parseNFT(decodedData, "https://taishang.leeduckgo.com/taishang/api/v1/parse?handler_id=1&type=n");
+  //   // return decodedData;
+  // }
+  // function decodeTokenURI(tokenURI) {
     
-    let decodedData = window.atob(tokenURI.slice(29));
-    let decodedDataFinally = window.atob(JSON.parse(decodedData).image.slice(26));
-    console.log("decoded data Finally", decodedDataFinally);
-    return decodedDataFinally;
-  }
+  //   let decodedData = window.atob(tokenURI.slice(29));
+  //   let decodedDataFinally = window.atob(JSON.parse(decodedData).image.slice(26));
+  //   console.log("decoded data Finally", decodedDataFinally);
+  //   return decodedDataFinally;
+  // }
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
   console.log("🏷 Resolved austingriffith.eth as:",addressFromENS)
