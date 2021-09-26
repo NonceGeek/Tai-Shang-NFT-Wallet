@@ -228,7 +228,21 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
   return (
     <div>
       <Row>
-        <Col
+        { functionInfo.name === 'claim'?(
+          <Col
+          span={8}
+          style={{
+            textAlign: "right",
+            opacity: 0.333,
+            paddingRight: 6,
+            fontSize: 24,
+            color: 'red'
+          }}
+        >
+          {functionInfo.name}
+        </Col>
+        ):(
+          <Col
           span={8}
           style={{
             textAlign: "right",
@@ -239,6 +253,8 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
         >
           {functionInfo.name}
         </Col>
+        )}
+
         <Col span={16}>{inputs}</Col>
       </Row>
       <Divider />
