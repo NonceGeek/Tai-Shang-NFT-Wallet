@@ -77,18 +77,18 @@ const STARTING_JSON = {
 
 // helper function to "Get" from IPFS
 // you usually go content.toString() after this...
-const getFromIPFS = async hashToGet => {
-  for await (const file of ipfs.get(hashToGet)) {
-    console.log(file.path);
-    if (!file.content) continue;
-    const content = new BufferList();
-    for await (const chunk of file.content) {
-      content.append(chunk);
-    }
-    console.log(content);
-    return content;
-  }
-};
+// const getFromIPFS = async hashToGet => {
+//   for await (const file of ipfs.get(hashToGet)) {
+//     console.log(file.path);
+//     if (!file.content) continue;
+//     const content = new BufferList();
+//     for await (const chunk of file.content) {
+//       content.append(chunk);
+//     }
+//     console.log(content);
+//     return content;
+//   }
+// };
 
 // 🛰 providers
 if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
@@ -101,6 +101,11 @@ const scaffoldEthProvider = navigator.onLine ? new ethers.providers.StaticJsonRp
 const mainnetInfura = navigator.onLine ? new ethers.providers.StaticJsonRpcProvider("https://mainnet.infura.io/v3/" + INFURA_ID) : null;
 // ( ⚠️ Getting "failed to meet quorum" errors? Check your INFURA_I
 
+// IMPORTANT: ENV Example: the variable should be formatted as REACT_APP_*
+// https://create-react-app.dev/docs/adding-custom-environment-variables/
+// const test = process.env.REACT_APP_TEST;
+// console.log("test:", test);
+
 // 🏠 Your local provider is usually pointed at your local blockchain
 const localProviderUrl = targetNetwork.rpcUrl;
 // as you deploy to other networks you can set REACT_APP_PROVIDER=https://dai.poa.network in packages/react-app/.env
@@ -109,7 +114,8 @@ if (DEBUG) console.log("🏠 Connecting to provider:", localProviderUrlFromEnv);
 const localProvider = new ethers.providers.StaticJsonRpcProvider(localProviderUrlFromEnv);
 
 // IMPORTANT PLACE
-const backend = "https://taishang.leeduckgo.com/taishang/api/v1/parse?handler_id=1&type=n";
+const backend = process.env.REACT_APP_TAI_SHANG_NFT_PARSER;
+// "https://taishang.leeduckgo.com/taishang/api/v1/parse?handler_id=1&type=n";
 
 // 🔭 block explorer URL
 const blockExplorer = targetNetwork.blockExplorer;
