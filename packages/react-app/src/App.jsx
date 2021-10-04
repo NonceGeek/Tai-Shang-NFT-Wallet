@@ -23,6 +23,11 @@ import {
 import { parseNFT } from "./backend_hooks";
 
 import axios from "axios"; 
+import { tsConstructSignatureDeclaration } from "@babel/types";
+import { ConstructorFragment } from "@ethersproject/abi";
+
+
+
 
 const { BufferList } = require("bl");
 // https://www.npmjs.com/package/ipfs-http-client
@@ -142,6 +147,8 @@ const logoutOfWeb3Modal = async () => {
     window.location.reload();
   }, 1);
 };
+
+
 
 function App(props) {
   const mainnetProvider = scaffoldEthProvider && scaffoldEthProvider._network ? scaffoldEthProvider : mainnetInfura;
@@ -466,7 +473,7 @@ function App(props) {
   const [ipfsContent, setIpfsContent] = useState();
 
   const [transferToAddresses, setTransferToAddresses] = useState({});
-
+  
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
