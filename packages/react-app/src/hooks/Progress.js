@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 
 import "../themes/progress.css";
 
-/**
- * Progress Bar Component
- *
- * @author [Jose Antonio Ciccio](https://github.com/jciccio)
- */
 class Progress extends Component {
   constructor(props) {
     super(props);
