@@ -22,7 +22,9 @@ import {
 
 import { parseNFT } from "./backend_hooks";
 
-import axios from "axios"; 
+import axios from "axios";
+import nProgress from "nprogress";
+import "nprogress/nprogress.css"
 
 
 
@@ -470,7 +472,7 @@ function App(props) {
   const [ipfsContent, setIpfsContent] = useState();
 
   const [transferToAddresses, setTransferToAddresses] = useState({});
-  
+  nProgress.done()
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
