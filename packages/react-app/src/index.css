@@ -18,3 +18,9 @@ code {
 {
   border-bottom: 0px solid #1890ff !important;
 }
+.loading{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+}
