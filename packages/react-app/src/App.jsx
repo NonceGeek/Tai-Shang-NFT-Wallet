@@ -1,13 +1,16 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { Alert, Button, Card, Col, Input, List, Menu, Row } from "antd";
+import { Alert, Button, Card, List, Menu } from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
-import ReactJson from "react-json-view";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
-import { Account, Address, AddressInput, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
-import {INFURA_ID, NETWORK, NETWORKS } from "./constants";
+
+import axios from "axios";
+import { DownloadOutlined } from "@ant-design/icons";
+import { Account, Address, AddressInput, Contract, Header, ThemeSwitch } from "./components";
+import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
+
 import { Transactor } from "./helpers";
 import {
   useBalance,
@@ -20,31 +23,17 @@ import {
   useUserSigner,
 } from "./hooks";
 
-import { parseNFT } from "./backend_hooks";
-
-import axios from "axios"; 
-
-const { BufferList } = require("bl");
-// https://www.npmjs.com/package/ipfs-http-client
-const ipfsAPI = require("ipfs-http-client");
-const ipfs = ipfsAPI({ host: "ipfs.infura.io", port: "5001", protocol: "https" });
-
 const { ethers } = require("ethers");
 
 /*
     Welcome to 🏗 scaffold-eth !
-
     Code:
     https://github.com/austintgriffith/scaffold-eth
-
     Support:
     https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA
     or DM @austingriffith on twitter or telegram
-
     You should get your own Infura.io ID and put it in `constants.js`
     (this is your connection to the main Ethereum network for ENS etc.)
-
-
     🌏 EXTERNAL CONTRACTS:
     You can also bring in contract artifacts in `constants.js`
     (and then use the `useExternalContractLoader()` hook!)
@@ -58,37 +47,6 @@ const DEBUG = true;
 const NETWORKCHECK = true;
 
 // EXAMPLE STARTING JSON:
-const STARTING_JSON = {
-  description: "It's actually a bison?",
-  external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-  image: "https://austingriffith.com/images/paintings/buffalo.jpg",
-  name: "Buffalo",
-  attributes: [
-    {
-      trait_type: "BackgroundColor",
-      value: "green",
-    },
-    {
-      trait_type: "Eyes",
-      value: "googly",
-    },
-  ],
-};
-
-// helper function to "Get" from IPFS
-// you usually go content.toString() after this...
-// const getFromIPFS = async hashToGet => {
-//   for await (const file of ipfs.get(hashToGet)) {
-//     console.log(file.path);
-//     if (!file.content) continue;
-//     const content = new BufferList();
-//     for await (const chunk of file.content) {
-//       content.append(chunk);
-//     }
-//     console.log(content);
-//     return content;
-//   }
-// };
 
 // 🛰 providers
 if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
@@ -97,8 +55,14 @@ if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
 //
 // attempt to connect to our own scaffold eth rpc and if that fails fall back to infura...
 // Using StaticJsonRpcProvider as the chainId won't change see https://github.com/ethers-io/ethers.js/issues/901
-const scaffoldEthProvider = navigator.onLine ? new ethers.providers.StaticJsonRpcProvider("https://rpc.scaffoldeth.io:48544") : null;
-const mainnetInfura = navigator.onLine ? new ethers.providers.StaticJsonRpcProvider("https://mainnet.infura.io/v3/" + INFURA_ID) : null;
+
+const scaffoldEthProvider = navigator.onLine
+  ? new ethers.providers.StaticJsonRpcProvider("https://rpc.scaffoldeth.io:48544")
+  : null;
+const mainnetInfura = navigator.onLine
+  ? new ethers.providers.StaticJsonRpcProvider("https://mainnet.infura.io/v3/" + INFURA_ID)
+  : null;
+
 // ( ⚠️ Getting "failed to meet quorum" errors? Check your INFURA_I
 
 // IMPORTANT: ENV Example: the variable should be formatted as REACT_APP_*
@@ -116,6 +80,8 @@ const localProvider = new ethers.providers.StaticJsonRpcProvider(localProviderUr
 // IMPORTANT PLACE
 const backend = process.env.REACT_APP_TAI_SHANG_NFT_PARSER;
 // "https://taishang.leeduckgo.com/taishang/api/v1/parse?handler_id=1&type=n";
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 
 // 🔭 block explorer URL
 const blockExplorer = targetNetwork.blockExplorer;
@@ -143,9 +109,9 @@ const logoutOfWeb3Modal = async () => {
   }, 1);
 };
 
-function App(props) {
+function App() {
   const mainnetProvider = scaffoldEthProvider && scaffoldEthProvider._network ? scaffoldEthProvider : mainnetInfura;
-
+  console.log("mainnetProvider:", mainnetProvider);
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
   /* 💵 This hook will get the price of ETH from 🦄 Uniswap: */
@@ -225,7 +191,7 @@ function App(props) {
       const collectibleUpdate = [];
       for (let tokenIndex = 0; tokenIndex < balance; tokenIndex++) {
         try {
-          console.log("GEtting token index", tokenIndex);
+          console.log("Getting token index", tokenIndex);
           const tokenId = await readContracts.N.tokenOfOwnerByIndex(address, tokenIndex);
           console.log("tokenId", tokenId);
           const tokenURI = await readContracts.N.tokenURI(tokenId);
@@ -237,29 +203,30 @@ function App(props) {
           // const ipfsHash = tokenURI.replace("https://ipfs.io/ipfs/", "");
           // console.log("ipfsHash", ipfsHash);
           axios({
-            method: 'post',
+            method: "post",
             url: backend,
             data: {
               token_uri: tokenURI,
+              base_url: baseURL
             },
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             }
           })
           .then(response => {
             svg = window.atob(response.data.result.image);
             
-            console.log(svg);
+            console.log("svg fetched: ", svg);
             try {
               // const jsonManifest = JSON.parse(jsonManifestBuffer.toString());
               // console.log("jsonManifest", jsonManifest);
               collectibleUpdate.push({ id: tokenId, uri: tokenURI, svg: svg, owner: address});
             } catch (e) {
-              console.log(e);
+              console.log("error in svg fetched:", e);
             }
           })
           .catch(error => {
-            console.log(error);
+            console.log("error in svg fetched:", error);
           });
         
           // const jsonManifestBuffer = await getFromIPFS(ipfsHash);
@@ -274,18 +241,6 @@ function App(props) {
     updateNs();
   }, [address, yourBalance]);
 
-  // function get_svg(tokenURI) {
-  //   let decodedData = window.atob(tokenURI.slice(29));
-  //   return parseNFT(decodedData, "https://taishang.leeduckgo.com/taishang/api/v1/parse?handler_id=1&type=n");
-  //   // return decodedData;
-  // }
-  // function decodeTokenURI(tokenURI) {
-    
-  //   let decodedData = window.atob(tokenURI.slice(29));
-  //   let decodedDataFinally = window.atob(JSON.parse(decodedData).image.slice(26));
-  //   console.log("decoded data Finally", decodedDataFinally);
-  //   return decodedDataFinally;
-  // }
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
   console.log("🏷 Resolved austingriffith.eth as:",addressFromENS)
@@ -428,7 +383,6 @@ function App(props) {
   }, [setRoute]);
 
   let faucetHint = "";
-  const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
 
   const [faucetClicked, setFaucetClicked] = useState(false);
   if (
@@ -457,20 +411,13 @@ function App(props) {
     );
   }
 
-  const [yourJSON, setYourJSON] = useState(STARTING_JSON);
-  const [sending, setSending] = useState();
-  const [ipfsHash, setIpfsHash] = useState();
-  const [ipfsDownHash, setIpfsDownHash] = useState();
-
-  const [downloading, setDownloading] = useState();
-  const [ipfsContent, setIpfsContent] = useState();
-
   const [transferToAddresses, setTransferToAddresses] = useState({});
 
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
       <Header />
+
       {networkDisplay}
       <BrowserRouter>
         <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
@@ -559,12 +506,39 @@ function App(props) {
                           </div>
                         }
                       >
-                        <div style={{width: '300px', height: '300px'}}>
+                        <div style={{width: '300px', height: '300px'}} id={"nft_"+item.id}>
                           <div dangerouslySetInnerHTML={{__html: item.svg }} />
                           {/* {item.svg} */}
                           {/* <img src={item.image} style={{ maxWidth: 150 }} /> */}
                         </div>
                         <div>{item.description}</div>
+
+                        <a
+                          download={item.id + ".svg"}
+                          href={`data:text/plain;charset=utf-8,${encodeURIComponent(item.svg)}`}
+                          // href={item.uri}
+                          // IMPORTANT: DOWNLOAD BUTTON HERE
+                        >
+                          <Button
+                            type="primary"
+                            shape="round"
+                            icon={<DownloadOutlined />}
+                            style={{ marginTop: "16px" }}
+                          >
+                            download .svg
+                          </Button>
+                        </a>
+                        {/* <a download={item.id + ".json"} href={item.uri}>
+                          <Button
+                            type="primary"
+                            shape="round"
+                            icon={<DownloadOutlined />}
+                            style={{ marginTop: "16px" }}
+                          >
+                            download json
+                          </Button>
+                        </a> */}
+
                       </Card>
 
                       <div>
@@ -654,7 +628,6 @@ function App(props) {
                 }}
               />
             </div>
-
             <Button
               style={{ margin: 8 }}
               loading={sending}
@@ -675,7 +648,6 @@ function App(props) {
             >
               Upload to IPFS
             </Button>
-
             <div style={{ padding: 16, paddingBottom: 150 }}>{ipfsHash}</div>
           </Route>
           <Route path="/ipfsdown">
@@ -707,7 +679,6 @@ function App(props) {
             >
               Download from IPFS
             </Button>
-
             <pre style={{ padding: 16, width: 500, margin: "auto", paddingBottom: 150 }}>{ipfsContent}</pre>
           </Route>
           <Route path="/debugcontracts">
@@ -738,46 +709,6 @@ function App(props) {
           blockExplorer={blockExplorer}
         />
         {faucetHint}
-      </div>
-
-      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-      <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
-        <Row align="middle" gutter={[4, 4]}>
-          <Col span={8}>
-            <Ramp price={price} address={address} networks={NETWORKS} />
-          </Col>
-
-          <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
-            <GasGauge gasPrice={gasPrice} />
-          </Col>
-          <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
-            <Button
-              onClick={() => {
-                window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
-              }}
-              size="large"
-              shape="round"
-            >
-              <span style={{ marginRight: 8 }} role="img" aria-label="support">
-                💬
-              </span>
-              Support
-            </Button>
-          </Col>
-        </Row>
-
-        <Row align="middle" gutter={[4, 4]}>
-          <Col span={24}>
-            {
-              /*  if the local provider has a signer, let's show the faucet:  */
-              faucetAvailable ? (
-                <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
-              ) : (
-                ""
-              )
-            }
-          </Col>
-        </Row>
       </div>
     </div>
   );
