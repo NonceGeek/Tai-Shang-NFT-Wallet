@@ -110,6 +110,7 @@ const logoutOfWeb3Modal = async () => {
 };
 
 function App() {
+
   const mainnetProvider = scaffoldEthProvider && scaffoldEthProvider._network ? scaffoldEthProvider : mainnetInfura;
   console.log("mainnetProvider:", mainnetProvider);
   const [injectedProvider, setInjectedProvider] = useState();
@@ -412,7 +413,7 @@ function App() {
   }
 
   const [transferToAddresses, setTransferToAddresses] = useState({});
-
+  nProgress.done()
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
