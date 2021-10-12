@@ -27,6 +27,7 @@ import {
 import nProgress from "nprogress";
 import "nprogress/nprogress.css"
 
+// const { Account}  = React.lazy(() => import("./components"));
 const { ethers } = require("ethers");
 
 /*
@@ -173,9 +174,9 @@ function App() {
   });
 
   // Then read your DAI balance like:
-  const myMainnetDAIBalance = useContractReader(mainnetContracts, "DAI", "balanceOf", [
-    "0x34aA3F359A9D614239015126635CE7732c18fDF3",
-  ]);
+  // const myMainnetDAIBalance = useContractReader(mainnetContracts, "DAI", "balanceOf", [
+  //   "0x34aA3F359A9D614239015126635CE7732c18fDF3",
+  // ]);
 
   // keep track of a variable from the contract in the local React state:
   const balance = useContractReader(readContracts, "N", "balanceOf", [address]);

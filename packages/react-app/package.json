@@ -49,6 +49,7 @@
     "react-qr-reader": "^2.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
+    "source-map-explorer": "^2.5.2",
     "web3modal": "^1.9.1"
   },
   "devDependencies": {
@@ -80,6 +81,7 @@
     "extends": "react-app"
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/main.*",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "prestart": "node ./scripts/create_contracts.js",

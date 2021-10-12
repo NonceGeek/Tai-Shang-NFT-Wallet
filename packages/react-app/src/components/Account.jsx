@@ -1,10 +1,11 @@
 import { Button } from "antd";
-import React from "react";
+import React  from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import Address from "./Address";
 import Balance from "./Balance";
 import Wallet from "./Wallet";
 
+// const Address = React.lazy(() => import('./'));
 /*
   ~ What it does? ~
 
@@ -106,8 +107,8 @@ export default function Account({
 
   return (
     <div>
-      {display}
-      {modalButtons}
+        {display}
+        {modalButtons}
     </div>
   );
 }
