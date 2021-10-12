@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1cc4dd46cb1a8778426d759c8cf99b8a",
+    "revision": "a3fac3f0cdbb80a5ffba9daea4f9b242",
     "url": "http://localhost/bewater/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "http://localhost/bewater/static/css/2.71913d3e.chunk.css"
   },
   {
-    "revision": "0c6f474f2531d47b4457",
+    "revision": "efd92e21d484d47493fe",
     "url": "http://localhost/bewater/static/css/main.d27615c7.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "http://localhost/bewater/static/js/2.a357660b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0c6f474f2531d47b4457",
-    "url": "http://localhost/bewater/static/js/main.2303cb18.chunk.js"
+    "revision": "efd92e21d484d47493fe",
+    "url": "http://localhost/bewater/static/js/main.5ae5e383.chunk.js"
   },
   {
     "revision": "e47b79cdd3e69cb62e28",

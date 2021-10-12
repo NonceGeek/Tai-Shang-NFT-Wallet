@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "http://localhost/bewater/static/css/main.d27615c7.chunk.css",
-    "main.js": "http://localhost/bewater/static/js/main.2303cb18.chunk.js",
-    "main.js.map": "http://localhost/bewater/static/js/main.2303cb18.chunk.js.map",
+    "main.js": "http://localhost/bewater/static/js/main.5ae5e383.chunk.js",
+    "main.js.map": "http://localhost/bewater/static/js/main.5ae5e383.chunk.js.map",
     "runtime-main.js": "http://localhost/bewater/static/js/runtime-main.f8d2c45b.js",
     "runtime-main.js.map": "http://localhost/bewater/static/js/runtime-main.f8d2c45b.js.map",
     "static/css/2.71913d3e.chunk.css": "http://localhost/bewater/static/css/2.71913d3e.chunk.css",
     "static/js/2.a357660b.chunk.js": "http://localhost/bewater/static/js/2.a357660b.chunk.js",
     "static/js/2.a357660b.chunk.js.map": "http://localhost/bewater/static/js/2.a357660b.chunk.js.map",
     "index.html": "http://localhost/bewater/index.html",
-    "precache-manifest.963818d518ccfa9518cf7fed240007e2.js": "http://localhost/bewater/precache-manifest.963818d518ccfa9518cf7fed240007e2.js",
+    "precache-manifest.e3a21a5996099259c1058e756c350497.js": "http://localhost/bewater/precache-manifest.e3a21a5996099259c1058e756c350497.js",
     "service-worker.js": "http://localhost/bewater/service-worker.js",
     "static/css/2.71913d3e.chunk.css.map": "http://localhost/bewater/static/css/2.71913d3e.chunk.css.map",
     "static/css/main.d27615c7.chunk.css.map": "http://localhost/bewater/static/css/main.d27615c7.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.71913d3e.chunk.css",
     "static/js/2.a357660b.chunk.js",
     "static/css/main.d27615c7.chunk.css",
-    "static/js/main.2303cb18.chunk.js"
+    "static/js/main.5ae5e383.chunk.js"
   ]
 }
