@@ -27,7 +27,6 @@ class Loading extends Component {
     super();
     nProgress.start()
   }
-  render
   render(){
       return (
       <div></div>

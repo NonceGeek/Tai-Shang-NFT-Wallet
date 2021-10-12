@@ -23,6 +23,10 @@ import {
   useUserSigner,
 } from "./hooks";
 
+// nprogress
+import nProgress from "nprogress";
+import "nprogress/nprogress.css"
+
 const { ethers } = require("ethers");
 
 /*
