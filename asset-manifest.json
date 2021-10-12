@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "./static/css/main.d27615c7.chunk.css",
-    "main.js": "./static/js/main.a6ff2373.chunk.js",
-    "main.js.map": "./static/js/main.a6ff2373.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.08baa623.js",
-    "runtime-main.js.map": "./static/js/runtime-main.08baa623.js.map",
-    "static/css/2.71913d3e.chunk.css": "./static/css/2.71913d3e.chunk.css",
-    "static/js/2.5afc587e.chunk.js": "./static/js/2.5afc587e.chunk.js",
-    "static/js/2.5afc587e.chunk.js.map": "./static/js/2.5afc587e.chunk.js.map",
-    "index.html": "./index.html",
-    "precache-manifest.fca23c785a9f1355c352d2ee6dc436fb.js": "./precache-manifest.fca23c785a9f1355c352d2ee6dc436fb.js",
-    "service-worker.js": "./service-worker.js",
-    "static/css/2.71913d3e.chunk.css.map": "./static/css/2.71913d3e.chunk.css.map",
-    "static/css/main.d27615c7.chunk.css.map": "./static/css/main.d27615c7.chunk.css.map",
-    "static/js/2.5afc587e.chunk.js.LICENSE.txt": "./static/js/2.5afc587e.chunk.js.LICENSE.txt"
+    "main.css": "http://localhost/bewater/static/css/main.d27615c7.chunk.css",
+    "main.js": "http://localhost/bewater/static/js/main.e6f329df.chunk.js",
+    "main.js.map": "http://localhost/bewater/static/js/main.e6f329df.chunk.js.map",
+    "runtime-main.js": "http://localhost/bewater/static/js/runtime-main.f8d2c45b.js",
+    "runtime-main.js.map": "http://localhost/bewater/static/js/runtime-main.f8d2c45b.js.map",
+    "static/css/2.71913d3e.chunk.css": "http://localhost/bewater/static/css/2.71913d3e.chunk.css",
+    "static/js/2.a357660b.chunk.js": "http://localhost/bewater/static/js/2.a357660b.chunk.js",
+    "static/js/2.a357660b.chunk.js.map": "http://localhost/bewater/static/js/2.a357660b.chunk.js.map",
+    "index.html": "http://localhost/bewater/index.html",
+    "precache-manifest.44c61b305089ef80dbf3463b8b8a13ee.js": "http://localhost/bewater/precache-manifest.44c61b305089ef80dbf3463b8b8a13ee.js",
+    "service-worker.js": "http://localhost/bewater/service-worker.js",
+    "static/css/2.71913d3e.chunk.css.map": "http://localhost/bewater/static/css/2.71913d3e.chunk.css.map",
+    "static/css/main.d27615c7.chunk.css.map": "http://localhost/bewater/static/css/main.d27615c7.chunk.css.map",
+    "static/js/2.a357660b.chunk.js.LICENSE.txt": "http://localhost/bewater/static/js/2.a357660b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.08baa623.js",
+    "static/js/runtime-main.f8d2c45b.js",
     "static/css/2.71913d3e.chunk.css",
-    "static/js/2.5afc587e.chunk.js",
+    "static/js/2.a357660b.chunk.js",
     "static/css/main.d27615c7.chunk.css",
-    "static/js/main.a6ff2373.chunk.js"
+    "static/js/main.e6f329df.chunk.js"
   ]
 }
