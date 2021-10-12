@@ -428,30 +428,30 @@ function App() {
         <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
           <Menu.Item key="/">
             <Link
-              onClick={() => {
-                setRoute("/");
-              }}
-              to="/"
+              // onClick={() => {
+              //   setRoute("/");
+              // }}
+              to="/Tai-Shang-NFT-Wallet"
             >
               Ns
             </Link>
           </Menu.Item>
           <Menu.Item key="/contract-interactor">
             <Link
-              onClick={() => {
-                setRoute("/contract-interactor");
-              }}
-              to="/contract-interactor"
+              // onClick={() => {
+              //   setRoute("/contract-interactor");
+              // }}
+              to="/Tai-Shang-NFT-Wallet/contract-interactor"
             >
               Contract Interactor
             </Link>
           </Menu.Item>
           <Menu.Item key="/transfers">
             <Link
-              onClick={() => {
-                setRoute("/transfers");
-              }}
-              to="/transfers"
+              // onClick={() => {
+              //   setRoute("/transfers");
+              // }}
+              to="/Tai-Shang-NFT-Wallet/transfers"
             >
               Transfers
             </Link>
@@ -490,7 +490,7 @@ function App() {
         </Menu>
 
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/Tai-Shang-NFT-Wallet">
             {/*
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI
@@ -581,7 +581,7 @@ function App() {
           </Route>
 
           {/* IMPORTANT PLACE */}
-          <Route exact path="/contract-interactor">
+          <Route exact path="/Tai-Shang-NFT-Wallet/contract-interactor">
             {/*
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI
@@ -597,7 +597,7 @@ function App() {
             />
           </Route>
 
-          <Route path="/transfers">
+          <Route path="/Tai-Shang-NFT-Wallet/transfers">
             <div style={{ width: 600, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
               <List
                 bordered
