@@ -46,7 +46,8 @@ const { ethers } = require("ethers");
 
 /// 📡 What chain are your contracts deployed to?
 const targetNetwork = NETWORKS.ropsten; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
-
+// const targetNetwork = NETWORKS.moonbeamSelf; <----- moonbeamSelf Node!
+// const targetNetwork = NETWORKS.moonbeamAlpha;
 // 😬 Sorry for all the console logging
 const DEBUG = true;
 const NETWORKCHECK = true;

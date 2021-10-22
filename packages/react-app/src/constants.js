@@ -15,6 +15,22 @@ export const NETWORKS = {
     blockExplorer: "",
     rpcUrl: "http://" + window.location.hostname + ":8545",
   },
+  moonbeamAlpha: {
+    name: "moonbeamAlpha",
+    color: "#7003DD", 
+    chainId: "1287",
+    rpcUrl: `https://rpc.testnet.moonbeam.network`,
+    // blockExplorer: "https://moonbeam-explorer.netlify.app/?network=MoonbaseAlpha",
+    blockExplorer: "https://leeduckgo.com/moonbeam/",
+    // https://moonbeam-explorer.netlify.app/address/0x61595Bf63E6293632C1408330A6C0f16b34138c0?network=MoonbaseAlpha
+  },
+  moonbeamSelf: {
+    name: "moonbeamSelf",
+    color: "#F60D09",
+    chainId: "1281",
+    rpcUrl: `https://elixir.leeduckgo.com/moonbeam`,
+    blockExplorer: "https://etherscan.io/",
+  },
   mainnet: {
     name: "mainnet",
     color: "#ff8b9e",

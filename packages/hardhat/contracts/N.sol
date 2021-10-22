@@ -1,10 +1,9 @@
-// SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 pragma solidity 0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./Whitelist.sol";
 
 contract N is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint8[] private units = [
@@ -139,10 +138,6 @@ contract N is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
 
     uint8[] private suffixes = [1, 2];
-    
-    Whitelist public whitelistContract;
-    
-    mapping(address => bool) isClaimed;
 
     function random(string memory input) internal pure returns (uint256) {
         return uint256(keccak256(abi.encodePacked(input)));
@@ -276,10 +271,7 @@ contract N is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function claim(uint256 tokenId) public nonReentrant {
         require(tokenId > 0 && tokenId < 8889, "Token ID invalid");
-        require(whitelistContract.isMember(_msgSender()), "You are not in the whitelist");
-        require(isClaimed[_msgSender()]==false, "You have already claimed");
         _safeMint(_msgSender(), tokenId);
-        isClaimed[_msgSender()] = true;
     }
 
     function toString(uint256 value) internal pure returns (string memory) {
@@ -304,9 +296,7 @@ contract N is ERC721Enumerable, ReentrancyGuard, Ownable {
         return string(buffer);
     }
 
-    constructor(address whitelistContractAddr) ERC721("n", "N") Ownable() {
-        whitelistContract = Whitelist(whitelistContractAddr);
-    }
+    constructor() ERC721("n", "N") Ownable() {}
 }
 
 /// [MIT License]
