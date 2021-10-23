@@ -7,7 +7,7 @@ import Web3Modal from "web3modal";
 import "./App.css";
 
 import axios from "axios";
-import { DownloadOutlined } from "@ant-design/icons";
+import { DownloadOutlined, LinkOutlined } from "@ant-design/icons";
 import { Account, Address, AddressInput, Contract, Header, ThemeSwitch } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 
@@ -45,9 +45,9 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const targetNetwork = NETWORKS.ropsten; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+// const targetNetwork = NETWORKS.ropsten; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 // const targetNetwork = NETWORKS.moonbeamSelf; <----- moonbeamSelf Node!
-// const targetNetwork = NETWORKS.moonbeamAlpha;
+const targetNetwork = NETWORKS.moonbeamAlpha;
 // 😬 Sorry for all the console logging
 const DEBUG = true;
 const NETWORKCHECK = true;
@@ -432,7 +432,7 @@ function App() {
               // onClick={() => {
               //   setRoute("/");
               // }}
-              to="/Tai-Shang-NFT-Wallet"
+              to="/"
             >
               Ns
             </Link>
@@ -442,12 +442,12 @@ function App() {
               // onClick={() => {
               //   setRoute("/contract-interactor");
               // }}
-              to="/Tai-Shang-NFT-Wallet/contract-interactor"
+              to="/contract-interactor"
             >
               Contract Interactor
             </Link>
           </Menu.Item>
-          <Menu.Item key="/transfers">
+          {/* <Menu.Item key="/transfers">
             <Link
               // onClick={() => {
               //   setRoute("/transfers");
@@ -456,7 +456,7 @@ function App() {
             >
               Transfers
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
 
           {/* <Menu.Item key="/ipfsup">
             <Link
@@ -491,7 +491,7 @@ function App() {
         </Menu>
 
         <Switch>
-          <Route exact path="/Tai-Shang-NFT-Wallet">
+          <Route exact path="/">
             {/*
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI
@@ -532,6 +532,15 @@ function App() {
                             style={{ marginTop: "16px" }}
                           >
                             download .svg
+                          </Button>
+                        </a>
+                        <a
+                          href="https://www.pns.link"
+                          // href={item.uri}
+                          // IMPORTANT: DOWNLOAD BUTTON HERE
+                        >
+                          <Button type="primary" shape="round" icon={<LinkOutlined />} style={{ marginTop: "16px" }}>
+                            register pns
                           </Button>
                         </a>
                         {/* <a download={item.id + ".json"} href={item.uri}>
@@ -582,7 +591,7 @@ function App() {
           </Route>
 
           {/* IMPORTANT PLACE */}
-          <Route exact path="/Tai-Shang-NFT-Wallet/contract-interactor">
+          <Route exact path="/contract-interactor">
             {/*
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI

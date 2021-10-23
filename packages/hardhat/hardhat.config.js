@@ -27,8 +27,8 @@ const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 // Select the network you want to deploy to here:
 //
 // IMPORTANT
-// const defaultNetwork = "moonbeamAlpha";
-const defaultNetwork = "ropsten";
+const defaultNetwork = "moonbeamAlpha";
+// const defaultNetwork = "ropsten";
 function mnemonic() {
   try {
     return fs.readFileSync("./mnemonic.txt").toString().trim();
