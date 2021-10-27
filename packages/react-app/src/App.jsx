@@ -45,7 +45,7 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const targetNetwork = NETWORKS.ropsten; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const targetNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
@@ -216,25 +216,25 @@ function App() {
               base_url: baseURL
             },
             headers: {
-                "Content-Type": "application/json"
+              "Content-Type": "application/json"
             }
           })
-          .then(response => {
-            svg = window.atob(response.data.result.image);
-            
-            console.log("svg fetched: ", svg);
-            try {
-              // const jsonManifest = JSON.parse(jsonManifestBuffer.toString());
-              // console.log("jsonManifest", jsonManifest);
-              collectibleUpdate.push({ id: tokenId, uri: tokenURI, svg: svg, owner: address});
-            } catch (e) {
-              console.log("error in svg fetched:", e);
-            }
-          })
-          .catch(error => {
-            console.log("error in svg fetched:", error);
-          });
-        
+            .then(response => {
+              svg = window.atob(response.data.result.image);
+
+              console.log("svg fetched: ", svg);
+              try {
+                // const jsonManifest = JSON.parse(jsonManifestBuffer.toString());
+                // console.log("jsonManifest", jsonManifest);
+                collectibleUpdate.push({ id: tokenId, uri: tokenURI, svg: svg, owner: address });
+              } catch (e) {
+                console.log("error in svg fetched:", e);
+              }
+            })
+            .catch(error => {
+              console.log("error in svg fetched:", error);
+            });
+
           // const jsonManifestBuffer = await getFromIPFS(ipfsHash);
 
 
@@ -511,8 +511,8 @@ function App() {
                           </div>
                         }
                       >
-                        <div style={{width: '300px', height: '300px'}} id={"nft_"+item.id}>
-                          <div dangerouslySetInnerHTML={{__html: item.svg }} />
+                        <div style={{ width: '300px', height: '300px' }} id={"nft_" + item.id}>
+                          <div dangerouslySetInnerHTML={{ __html: item.svg }} />
                           {/* {item.svg} */}
                           {/* <img src={item.image} style={{ maxWidth: 150 }} /> */}
                         </div>
@@ -521,8 +521,8 @@ function App() {
                         <a
                           download={item.id + ".svg"}
                           href={`data:text/plain;charset=utf-8,${encodeURIComponent(item.svg)}`}
-                          // href={item.uri}
-                          // IMPORTANT: DOWNLOAD BUTTON HERE
+                        // href={item.uri}
+                        // IMPORTANT: DOWNLOAD BUTTON HERE
                         >
                           <Button
                             type="primary"

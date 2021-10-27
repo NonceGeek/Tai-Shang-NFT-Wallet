@@ -1,3 +1,4 @@
+import Loading from "./components/Loading";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React, { Component } from 'react';
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
@@ -20,35 +21,17 @@ const client = new ApolloClient({
   uri: subgraphUri,
   cache: new InMemoryCache(),
 });
-
-
-class Loading extends Component {
-  constructor() {
-    super();
-    nProgress.start()
-  }
-  render(){
-      return (
-      <div></div>
-      )
-  }
-}
-ReactDOM.render(
-        <Loading />,
-        document.getElementById('root')
-      )
-
-function listen(){
-  if(document.readyState ==="complete"){
+function listen() {
+  if (document.readyState === "complete") {
     ReactDOM.render(
       <ApolloProvider client={client}>
-            <ThemeSwitcherProvider themeMap={themes} defaultTheme={prevTheme || "light"}>
-              <App subgraphUri={subgraphUri} />
-            </ThemeSwitcherProvider>
-          </ApolloProvider>,
+        <ThemeSwitcherProvider themeMap={themes} defaultTheme={prevTheme || "light"}>
+          <App subgraphUri={subgraphUri} />
+        </ThemeSwitcherProvider>
+      </ApolloProvider>,
       document.getElementById('root')
     )
-  }else{
+  } else {
     ReactDOM.render(
       <Loading />,
       document.getElementById('root')
