@@ -5,7 +5,7 @@ import Account from "../Account";
 import DisplayVariable from "./DisplayVariable";
 import FunctionForm from "./FunctionForm";
 
-const funcsUseful = ["claim", "ownerOf", "balanceOf"];
+const funcsUseful = ["claim", "ownerOf", "balanceOf", "cancelClaimAuthenticationInfo", "claimAuthenticationInfo", "isSuper", "admin"];
 const noContractDisplay = (
   <div>
     Loading...{" "}
@@ -71,8 +71,8 @@ export default function Contract({
     () =>
       contract
         ? Object.values(contract.interface.functions).filter(
-            fn => fn.type === "function" && !(show && show.indexOf(fn.name) < 0),
-          )
+          fn => fn.type === "function" && !(show && show.indexOf(fn.name) < 0),
+        )
         : [],
     [contract, show],
   ).sort((a, b) => funcsUseful.indexOf(a.name) - funcsUseful.indexOf(b.name));
