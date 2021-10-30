@@ -29,7 +29,7 @@ export const NETWORKS = {
     color: "#F60D09",
     chainId: "1281",
     rpcUrl: `https://elixir.leeduckgo.com/moonbeam`,
-    blockExplorer: "https://etherscan.io/",
+    blockExplorer: "https://leeduckgo.com/moonbeam/",
   },
   mainnet: {
     name: "mainnet",

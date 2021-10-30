@@ -27,7 +27,8 @@ const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 // Select the network you want to deploy to here:
 //
 // IMPORTANT
-const defaultNetwork = "moonbeamAlpha";
+const defaultNetwork = "moonbeamSelf";
+// const defaultNetwork = "moonbeamAlpha";
 // const defaultNetwork = "ropsten";
 function mnemonic() {
   try {

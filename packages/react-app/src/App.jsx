@@ -46,8 +46,8 @@ const { ethers } = require("ethers");
 
 /// 📡 What chain are your contracts deployed to?
 // const targetNetwork = NETWORKS.ropsten; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
-// const targetNetwork = NETWORKS.moonbeamSelf; <----- moonbeamSelf Node!
-const targetNetwork = NETWORKS.moonbeamAlpha;
+const targetNetwork = NETWORKS.moonbeamSelf;  //<----- moonbeamSelf Node!
+// const targetNetwork = NETWORKS.moonbeamAlpha;
 // 😬 Sorry for all the console logging
 const DEBUG = true;
 const NETWORKCHECK = true;
@@ -62,9 +62,10 @@ if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
 // attempt to connect to our own scaffold eth rpc and if that fails fall back to infura...
 // Using StaticJsonRpcProvider as the chainId won't change see https://github.com/ethers-io/ethers.js/issues/901
 
-const scaffoldEthProvider = navigator.onLine
-  ? new ethers.providers.StaticJsonRpcProvider("https://rpc.scaffoldeth.io:48544")
-  : null;
+const scaffoldEthProvider = null;
+// const scaffoldEthProvider = navigator.onLine
+//   ? new ethers.providers.StaticJsonRpcProvider("https://rpc.scaffoldeth.io:48544")
+//   : null;
 const mainnetInfura = navigator.onLine
   ? new ethers.providers.StaticJsonRpcProvider("https://mainnet.infura.io/v3/" + INFURA_ID)
   : null;
@@ -234,6 +235,8 @@ function App() {
           })
           .catch(error => {
             console.log("error in svg fetched:", error);
+            console.log("token_uri:", tokenURI);
+            console.log("token_url:", baseURL);
           });
         
           // const jsonManifestBuffer = await getFromIPFS(ipfsHash);
@@ -429,9 +432,9 @@ function App() {
         <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
           <Menu.Item key="/">
             <Link
-              // onClick={() => {
-              //   setRoute("/");
-              // }}
+              onClick={() => {
+                setRoute("/");
+              }}
               to="/"
             >
               Ns
@@ -439,9 +442,9 @@ function App() {
           </Menu.Item>
           <Menu.Item key="/contract-interactor">
             <Link
-              // onClick={() => {
-              //   setRoute("/contract-interactor");
-              // }}
+              onClick={() => {
+                setRoute("/contract-interactor");
+              }}
               to="/contract-interactor"
             >
               Contract Interactor
