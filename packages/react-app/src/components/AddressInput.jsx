@@ -1,6 +1,6 @@
 import { CameraOutlined, QrcodeOutlined } from "@ant-design/icons";
 import { Badge, Input } from "antd";
-import useLookupAddress from "../hooks/LookupAddress";
+import { useLookupAddress } from "eth-hooks";
 import React, { useCallback, useState } from "react";
 import QrReader from "react-qr-reader";
 import Blockie from "./Blockie";
