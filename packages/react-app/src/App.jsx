@@ -20,8 +20,9 @@ import {
   useExchangePrice,
   useGasPrice,
   useOnBlock,
-  useUserProviderAndSigner,
+  useUserProviderAndSigner
 } from "./hooks";
+
 
 // nprogress
 import nProgress from "nprogress";

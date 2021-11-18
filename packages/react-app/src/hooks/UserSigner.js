@@ -1,55 +1,65 @@
 import { useMemo, useState } from "react";
 import useBurnerSigner from "./BurnerSigner";
+import { parseProviderOrSigner } from "eth-hooks/functions/providerOrSigner";
 
-/*
-  ~ What it does? ~
-
-  Gets user provider
-
-  ~ How can I use? ~
-
-  const userProvider = useUserProvider(injectedProvider, localProvider);
-
+const syncBurnerKeyFromStorage = () => {
+  if (window.location.pathname && window.location.pathname.includes("/pk")) {
+    const incomingPK = window.location.hash.replace("#", "");
+    if (incomingPK.length === 64 || incomingPK.length === 66) {
+      console.log("🔑 Incoming Private Key...");
+      const rawPK = incomingPK;
+      window.history.pushState({}, "", "/");
+      const currentPrivateKey = window.localStorage.getItem("metaPrivateKey");
+      if (currentPrivateKey && currentPrivateKey !== rawPK) {
+        window.localStorage.setItem(`metaPrivateKey_backup${Date.now()}`, currentPrivateKey);
+      }
+      window.localStorage.setItem("metaPrivateKey", rawPK);
+    }
+  }
+};
+/**
+ *  Gets user provider/signer from injected provider or local provider
+ *  Use your injected provider from 🦊 Metamask
+ *  If you don't have it then instantly generate a 🔥 burner wallet from a local provider
+ *
   ~ Features ~
-
   - Specify the injected provider from Metamask
   - Specify the local provider
   - Usage examples:
     const tx = Transactor(userSigner, gasPrice)
-*/
-
-const useUserSigner = (injectedProvider, localProvider) => {
+ * @param injectedProviderOrSigner (TEthersProviderOrSigner) :: injected provider/signer from metamask etc..
+ * @param localProvider (TEthersProvider) local provider to generate a burner wallet from
+ * @returns (TProviderAndSigner)
+ */
+const useUserProviderAndSigner = (injectedProviderOrSigner, localProvider) => {
   const [signer, setSigner] = useState();
+  const [provider, setProvider] = useState();
+  const [providerNetwork, setProviderNetwork] = useState();
   const burnerSigner = useBurnerSigner(localProvider);
-
   useMemo(() => {
-    if (injectedProvider) {
+    if (injectedProviderOrSigner) {
       console.log("🦊 Using injected provider");
-      const injectedSigner = injectedProvider._isProvider ? injectedProvider.getSigner() : injectedProvider;
-      setSigner(injectedSigner);
-    } else if (!localProvider) setSigner();
-    else {
-      if (window.location.pathname && window.location.pathname.indexOf("/pk") >= 0) {
-        const incomingPK = window.location.hash.replace("#", "");
-        let rawPK;
-        if (incomingPK.length === 64 || incomingPK.length === 66) {
-          console.log("🔑 Incoming Private Key...");
-          rawPK = incomingPK;
-          window.history.pushState({}, "", "/");
-          const currentPrivateKey = window.localStorage.getItem("metaPrivateKey");
-          if (currentPrivateKey && currentPrivateKey !== rawPK) {
-            window.localStorage.setItem("metaPrivateKey_backup" + Date.now(), currentPrivateKey);
-          }
-          window.localStorage.setItem("metaPrivateKey", rawPK);
-        }
-      }
-
+      void parseProviderOrSigner(injectedProviderOrSigner).then(result => {
+        if (result != null) setSigner(result.signer);
+      });
+    } else if (!localProvider) {
+      setSigner(undefined);
+    } else {
+      syncBurnerKeyFromStorage();
       console.log("🔥 Using burner signer", burnerSigner);
       setSigner(burnerSigner);
     }
-  }, [injectedProvider, localProvider, burnerSigner]);
-
-  return signer;
+  }, [injectedProviderOrSigner, localProvider, burnerSigner]);
+  useMemo(() => {
+    if (signer) {
+      const result = parseProviderOrSigner(signer);
+      void result.then(r => {
+        setProvider(r.provider);
+        setProviderNetwork(r.providerNetwork);
+      });
+    }
+  }, [signer]);
+  return { signer, provider, providerNetwork };
 };
 
-export default useUserSigner;
+export default useUserProviderAndSigner;

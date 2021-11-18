@@ -13,5 +13,5 @@ export { default as useOnBlock } from "./OnBlock";
 export { default as usePoller } from "./Poller";
 export { default as useResolveName } from "./ResolveName";
 export { default as useTokenList } from "./TokenList";
-export { default as useUserSigner } from "./UserSigner";
+export { default as useUserProviderAndSigner } from "./UserSigner";
 export { default as useBurnerSigner } from "./BurnerSigner";
