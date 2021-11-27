@@ -20,16 +20,17 @@ import {
   useExchangePrice,
   useGasPrice,
   useOnBlock,
-  useUserProviderAndSigner
+  useUserProviderAndSigner,
 } from "./hooks";
-
 
 // nprogress
 import nProgress from "nprogress";
-import "nprogress/nprogress.css"
+import "nprogress/nprogress.css";
 
 // const { Account}  = React.lazy(() => import("./components"));
 const { ethers } = require("ethers");
+
+import SingleNFT from "./components/SingleNFT";
 
 /*
     Welcome to 🏗 scaffold-eth !
@@ -88,7 +89,6 @@ const backend = process.env.REACT_APP_TAI_SHANG_NFT_PARSER;
 // "https://taishang.leeduckgo.com/taishang/api/v1/parse?handler_id=1&type=n";
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-
 // 🔭 block explorer URL
 const blockExplorer = targetNetwork.blockExplorer;
 
@@ -116,7 +116,6 @@ const logoutOfWeb3Modal = async () => {
 };
 
 function App() {
-
   const mainnetProvider = scaffoldEthProvider && scaffoldEthProvider._network ? scaffoldEthProvider : mainnetInfura;
   console.log("mainnetProvider:", mainnetProvider);
   const [injectedProvider, setInjectedProvider] = useState();
@@ -129,6 +128,8 @@ function App() {
   // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
   const userProviderAndSigner = useUserProviderAndSigner(injectedProvider, localProvider);
   const userSigner = userProviderAndSigner.signer;
+
+  const nftGetQuery = new URLSearchParams(window.location.search).useQuery().get("id");
 
   useEffect(() => {
     async function getAddress() {
@@ -215,11 +216,11 @@ function App() {
             url: backend,
             data: {
               token_uri: tokenURI,
-              base_url: baseURL
+              base_url: baseURL,
             },
             headers: {
-              "Content-Type": "application/json"
-            }
+              "Content-Type": "application/json",
+            },
           })
             .then(response => {
               svg = window.atob(response.data.result.image);
@@ -238,8 +239,6 @@ function App() {
             });
 
           // const jsonManifestBuffer = await getFromIPFS(ipfsHash);
-
-
         } catch (e) {
           console.log(e);
         }
@@ -340,7 +339,8 @@ function App() {
                   }}
                 >
                   <b>{networkLocal && networkLocal.name}</b>
-                </Button>.
+                </Button>
+                .
               </div>
             }
             type="error"
@@ -419,7 +419,7 @@ function App() {
   }
 
   const [transferToAddresses, setTransferToAddresses] = useState({});
-  nProgress.done()
+  nProgress.done();
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
@@ -427,39 +427,42 @@ function App() {
 
       {networkDisplay}
       <BrowserRouter>
-        <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
-          <Menu.Item key="/">
-            <Link
-              // onClick={() => {
-              //   setRoute("/");
-              // }}
-              to="/Tai-Shang-NFT-Wallet"
-            >
-              Ns
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/contract-interactor">
-            <Link
-              // onClick={() => {
-              //   setRoute("/contract-interactor");
-              // }}
-              to="/Tai-Shang-NFT-Wallet/contract-interactor"
-            >
-              Contract Interactor
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/transfers">
-            <Link
-              // onClick={() => {
-              //   setRoute("/transfers");
-              // }}
-              to="/Tai-Shang-NFT-Wallet/transfers"
-            >
-              Transfers
-            </Link>
-          </Menu.Item>
+        {nftGetQuery ? (
+          <SingleNFT nftGetQuery={nftGetQuery} readContracts={readContracts} address={address} />
+        ) : (
+          <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
+            <Menu.Item key="/">
+              <Link
+                // onClick={() => {
+                //   setRoute("/");
+                // }}
+                to="/Tai-Shang-NFT-Wallet"
+              >
+                Ns
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/contract-interactor">
+              <Link
+                // onClick={() => {
+                //   setRoute("/contract-interactor");
+                // }}
+                to="/Tai-Shang-NFT-Wallet/contract-interactor"
+              >
+                Contract Interactor
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/transfers">
+              <Link
+                // onClick={() => {
+                //   setRoute("/transfers");
+                // }}
+                to="/Tai-Shang-NFT-Wallet/transfers"
+              >
+                Transfers
+              </Link>
+            </Menu.Item>
 
-          {/* <Menu.Item key="/ipfsup">
+            {/* <Menu.Item key="/ipfsup">
             <Link
               onClick={() => {
                 setRoute("/ipfsup");
@@ -489,7 +492,8 @@ function App() {
               Debug Contracts
             </Link>
           </Menu.Item> */}
-        </Menu>
+          </Menu>
+        )}
 
         <Switch>
           <Route exact path="/Tai-Shang-NFT-Wallet">
@@ -513,7 +517,7 @@ function App() {
                           </div>
                         }
                       >
-                        <div style={{ width: '300px', height: '300px' }} id={"nft_" + item.id}>
+                        <div style={{ width: "300px", height: "300px" }} id={"nft_" + item.id}>
                           <div dangerouslySetInnerHTML={{ __html: item.svg }} />
                           {/* {item.svg} */}
                           {/* <img src={item.image} style={{ maxWidth: 150 }} /> */}
@@ -523,8 +527,8 @@ function App() {
                         <a
                           download={item.id + ".svg"}
                           href={`data:text/plain;charset=utf-8,${encodeURIComponent(item.svg)}`}
-                        // href={item.uri}
-                        // IMPORTANT: DOWNLOAD BUTTON HERE
+                          // href={item.uri}
+                          // IMPORTANT: DOWNLOAD BUTTON HERE
                         >
                           <Button
                             type="primary"
@@ -545,7 +549,6 @@ function App() {
                             download json
                           </Button>
                         </a> */}
-
                       </Card>
 
                       <div>
