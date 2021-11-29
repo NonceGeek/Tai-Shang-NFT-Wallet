@@ -27,10 +27,10 @@ import {
 import nProgress from "nprogress";
 import "nprogress/nprogress.css";
 
+import SingleNFT from "./components/SingleNFT";
+
 // const { Account}  = React.lazy(() => import("./components"));
 const { ethers } = require("ethers");
-
-import SingleNFT from "./components/SingleNFT";
 
 /*
     Welcome to 🏗 scaffold-eth !
