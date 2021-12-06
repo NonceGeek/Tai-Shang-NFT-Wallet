@@ -6,6 +6,8 @@ import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
 
+import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
+
 import axios from "axios";
 import { DownloadOutlined } from "@ant-design/icons";
 import { Account, Address, AddressInput, Contract, Header, ThemeSwitch } from "./components";
@@ -17,11 +19,12 @@ import {
   useContractLoader,
   useContractReader,
   useEventListener,
-  useExchangePrice,
   useGasPrice,
   useOnBlock,
   useUserProviderAndSigner,
 } from "./hooks";
+
+
 
 // nprogress
 import nProgress from "nprogress";
@@ -47,7 +50,7 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const targetNetwork = NETWORKS.ropsten; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const targetNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
@@ -121,7 +124,7 @@ function App() {
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
   /* 💵 This hook will get the price of ETH from 🦄 Uniswap: */
-  const price = useExchangePrice(targetNetwork, mainnetProvider);
+  const price = useExchangeEthPrice(targetNetwork, mainnetProvider);
 
   /* 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation */
   const gasPrice = useGasPrice(targetNetwork, "fast");
