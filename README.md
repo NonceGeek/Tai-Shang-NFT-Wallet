@@ -32,7 +32,7 @@ yarn deploy
 
 It will deploy the contract to local chain:
 
-![image-20211207085654380](https://tva1.sinaimg.cn/large/008i3skNgy1gx4zkxyro6j31ry09kwgk.jpg)
+![image-20211207085654380](imgs/008i3skNgy1gx4zkxyro6j31ry09kwgk.png)
 
 > in a third terminal window:
 
@@ -43,13 +43,13 @@ yarn start
 
 📱 Open http://localhost:3000 to see the app
 
-![image-20211207090037546](https://tva1.sinaimg.cn/large/008i3skNgy1gx4zoqyp5uj31t70u0gny.jpg)
+![image-20211207090037546](imgs/008i3skNgy1gx4zoqyp5uj31t70u0gny.png)
 
 - get Faucet
 - Claim the NFT U like
 - See it in your Collection
 
-![image-20211207090125993](https://tva1.sinaimg.cn/large/008i3skNgy1gx4zpl9kxgj30zu0u0gn5.jpg)For a more in-depth explanation, documentation, quick start guide, tutorials, tips and many more resources, visit our documentation site: [docs.scaffoldeth.io](https://docs.scaffoldeth.io) 
+![image-20211207090125993](imgs/008i3skNgy1gx4zpl9kxgj30zu0u0gn5.png)For a more in-depth explanation, documentation, quick start guide, tutorials, tips and many more resources, visit our documentation site: [docs.scaffoldeth.io](https://docs.scaffoldeth.io) 
 
 # 💬 Support Chat
 
@@ -57,4 +57,4 @@ Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6Aj
 
 Contact the Developers for TaiShang NFT Wallet:
 
-![qr_code](https://tva1.sinaimg.cn/large/008i3skNgy1gx4zqtorkqj307308bmxj.jpg)
+![qr_code](imgs/008i3skNgy1gx4zqtorkqj307308bmxj.png)
