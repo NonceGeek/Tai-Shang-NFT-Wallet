@@ -132,7 +132,8 @@ function App() {
   const userProviderAndSigner = useUserProviderAndSigner(injectedProvider, localProvider);
   const userSigner = userProviderAndSigner.signer;
 
-  // const nftGetQuery = new URLSearchParams(window.location.search).useQuery().get("id");
+  const nftGet = new URLSearchParams(window.location.search)
+  const nftGetQuery = nftGet.get("id");
 
   useEffect(() => {
     async function getAddress() {
@@ -431,9 +432,9 @@ function App() {
 
       {networkDisplay}
       <BrowserRouter>
-        {/* {nftGetQuery ? (
+        {nftGetQuery ? (
           <SingleNFT nftGetQuery={nftGetQuery} readContracts={readContracts} address={address} />
-        ) : ( */}
+        ) : (
           <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
             <Menu.Item key="/">
               <Link
@@ -497,7 +498,7 @@ function App() {
             </Link>
           </Menu.Item> */}
           </Menu>
-        {/* )} */}
+        )}
 
         <Switch>
           <Route exact path="/Tai-Shang-NFT-Wallet">
